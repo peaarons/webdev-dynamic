@@ -4,7 +4,91 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>$$MOVIE$$</title>
+	<link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/mystyle.css">
 </head>
 <body>
+	<div class="title-bar">
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x" id="title-links">
+                <a href="index.html/A" class="cell auto">A</a>
+                <a href="index.html/B" class="cell auto">B</a>
+                <a href="index.html/C" class="cell auto">C</a>
+                <a href="index.html/D" class="cell auto">D</a>
+                <a href="index.html/E" class="cell auto">E</a>
+                <a href="index.html/F" class="cell auto">F</a>
+                <a href="index.html/G" class="cell auto">G</a>
+                <a href="index.html/H" class="cell auto">H</a>
+                <a href="index.html/I" class="cell auto">I</a>
+                <a href="index.html/J" class="cell auto">J</a>
+                <a href="index.html/K" class="cell auto">K</a>
+                <a href="index.html/L" class="cell auto">L</a>
+                <a href="index.html/M" class="cell auto">M</a>
+                <a href="index.html/N" class="cell auto">N</a>
+                <a href="index.html/O" class="cell auto">O</a>
+                <a href="index.html/P" class="cell auto">P</a>
+                <a href="index.html/Q" class="cell auto">Q</a>
+                <a href="index.html/R" class="cell auto">R</a>
+                <a href="index.html/S" class="cell auto">S</a>
+                <a href="index.html/T" class="cell auto">T</a>
+                <a href="index.html/U" class="cell auto">U</a>
+                <a href="index.html/V" class="cell auto">V</a>
+                <a href="index.html/W" class="cell auto">W</a>
+                <a href="index.html/X" class="cell auto">X</a>
+                <a href="index.html/Y" class="cell auto">Y</a>
+                <a href="index.html/Z" class="cell auto">Z</a>
+            </div>
+            <div class="grid-x grid-padding-x align-center-middle text-center">
+                <a href="" class="cell auto">5-4 Stars</a>
+                <a href="" class="cell auto">3-2 Stars</a>
+                <a href="" class="cell auto">1 Stars</a>
+            </div>
+        </div>
+    </div>
+
+	<div class="off-canvas-wrapper">
+        <!-- Your page content lives here -->
+        <div class="off-canvas-content" data-off-canvas-content>
+            <!-- main content within a `grid-container` -->
+            <div class="grid-container" id="content-container-rate">
+                <!-- `grid-x` represents a row -->
+                <div class="grid-x grid-padding-x align-center-middle">
+                    <h1>$$MOVIE TITLE$$ Scores</h1>
+                </div>
+				<div class="grid-x grid-padding-x">
+                    <div class="cell large-auto" style="padding-bottom: 2rem; padding-left: 2rem;">
+                        <h2>Fandango</h2>
+                        <div class="fandango">
+                            <p>Fandango Stars: $$FAN_STARS$$/5</p>
+							<p>Fandango Raiting Value: $$FAN_RATE_VAL$$/5</p>
+                        </div>
+
+                        <h2>Metacritic</h2>
+						<div class="metaCrit">
+							<p>Metacritic Critic Score: $$META_CRIT_SCORE$$/100</p>
+							<p>Normalized Metacritic Critic Score: $$META_CRIT_SCORE_NORM$$/5</p>
+							<p>User Score: $$META_USER_SCORE$$/10</p>
+							<p>Normalized User Score: $$META_USER_SCORE_NORM$$/5</p>
+						</div>
+                    </div>
+                    <div class="cell large-auto">
+                        <h2>Rotton Tomatoes</h2>
+						<div class="rot_tom">
+							<p>Tomatometer Score: $$TOMATOMETER_SCORE$$</p>
+							<p>Normalized Tomatometer Score: $$TOMATOMETER_SCORE_NORM$$/5</p>
+							<p>User Score: $$TOMATOE_USER_SCORE$$</p>
+							<p>Normalized User Score: $$TOMATOE_USER_SCORE_NORM$$/5</p>
+						</div>
+                        <h2>IMDB</h2>
+						<div class="imdb">
+							<p>IMDb User Score: $$IMDB_USER$$/10</p>
+							<p>Normalized Score: $$IMDB_NORM$$/5</p>
+						</div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

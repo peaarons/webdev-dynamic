@@ -1,0 +1,55 @@
+* {
+    font-family: Comfortaa;
+}
+
+html {
+    font-size: 100%;
+    
+}
+
+.title-bar {
+    background-color: #eae5c7;
+}
+
+.off-canvas-wrapper {
+    padding-top: 3rem;
+}
+
+#content-container-rate {
+    background-color: #eae5c7;
+    padding: 3rem;
+    color: rgb(63, 42, 25);
+    border-left-style: dashed;
+    border-right-style: dashed;
+    border-width: 1rem;
+    border-color: white;
+}
+
+#content-container {
+    background-color: #eae5c7;
+    padding: 3rem;
+    color: white;
+    border-top-style: dashed;
+    border-bottom-style: dashed;
+    border-width: 1rem;
+    border-color: white;
+}
+
+.movie-title {
+    border-color: red;
+    border-width: 1rem;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+h3 {
+    font-weight: 500;
+}
+
+p,
+a {
+    color: rgb(63, 42, 25);
+}
+
