@@ -24,7 +24,7 @@ const db = new sqlite3.Database(path.join(__dirname, 'fandango_score_comparison.
 
 });
 
-app.get('/:letter', (req, res) => {
+app.get('/index.html/:letter', (req, res) => {
     let letter = req.params.letter;
     console.log(letter);
     fs.readFile(path.join(root, 'index.html'), 'utf-8', (err, data) => {
