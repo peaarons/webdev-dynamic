@@ -52,40 +52,42 @@
             <!-- main content within a `grid-container` -->
             <div class="grid-container" id="content-container-rate">
                 <!-- `grid-x` represents a row -->
-                <div class="grid-x grid-padding-x align-center-middle" id="movie_titleS">
-                    <h1>$$MOVIE TITLE$$ Scores</h1>
-                </div>
-				<div class="grid-x grid-padding-x">
-                    <div class="cell large-auto" style="padding-bottom: 2rem; padding-left: 2rem;">
-                        <h2>Fandango</h2>
-                        <div class="fandango">
-                            <p>Fandango Stars: $$FAN_STARS$$/5</p>
-							<p>Fandango Raiting Value: $$FAN_RATE_VAL$$/5</p>
-                        </div>
-
-                        <h2>Metacritic</h2>
-						<div class="metaCrit">
-							<p>Metacritic Critic Score: $$META_CRIT_SCORE$$/100</p>
-							<p>Normalized Metacritic Critic Score: $$META_CRIT_SCORE_NORM$$/5</p>
-							<p>User Score: $$META_USER_SCORE$$/10</p>
-							<p>Normalized User Score: $$META_USER_SCORE_NORM$$/5</p>
+                <div class="grid-container" id="content-container-rate-line">
+					<div class="grid-x grid-padding-x align-center-middle" id="movie-title">
+						<h1>$$MOVIE TITLE$$ Scores</h1>
+					</div>
+					<div class="grid-x grid-padding-x">
+						<div class="cell large-auto" style="padding-bottom: 2rem; padding-left: 2rem;">
+							<h2>Fandango</h2>
+							<div class="fandango">
+								<p>Fandango Stars: $$FAN_STARS$$/5</p>
+								<p>Fandango Raiting Value: $$FAN_RATE_VAL$$/5</p>
+							</div>
+	
+							<h2>Metacritic</h2>
+							<div class="metaCrit">
+								<p>Metacritic Critic Score: $$META_CRIT_SCORE$$/100</p>
+								<p>Normalized Metacritic Critic Score: $$META_CRIT_SCORE_NORM$$/5</p>
+								<p>User Score: $$META_USER_SCORE$$/10</p>
+								<p>Normalized User Score: $$META_USER_SCORE_NORM$$/5</p>
+							</div>
 						</div>
-                    </div>
-                    <div class="cell large-auto">
-                        <h2>Rotton Tomatoes</h2>
-						<div class="rot_tom">
-							<p>Tomatometer Score: $$TOMATOMETER_SCORE$$</p>
-							<p>Normalized Tomatometer Score: $$TOMATOMETER_SCORE_NORM$$/5</p>
-							<p>User Score: $$TOMATOE_USER_SCORE$$</p>
-							<p>Normalized User Score: $$TOMATOE_USER_SCORE_NORM$$/5</p>
+						<div class="cell large-auto">
+							<h2>Rotton Tomatoes</h2>
+							<div class="rot_tom">
+								<p>Tomatometer Score: $$TOMATOMETER_SCORE$$</p>
+								<p>Normalized Tomatometer Score: $$TOMATOMETER_SCORE_NORM$$/5</p>
+								<p>User Score: $$TOMATOE_USER_SCORE$$</p>
+								<p>Normalized User Score: $$TOMATOE_USER_SCORE_NORM$$/5</p>
+							</div>
+							<h2>IMDB</h2>
+							<div class="imdb">
+								<p>IMDb User Score: $$IMDB_USER$$/10</p>
+								<p>Normalized Score: $$IMDB_NORM$$/5</p>
+							</div>
+						   
 						</div>
-                        <h2>IMDB</h2>
-						<div class="imdb">
-							<p>IMDb User Score: $$IMDB_USER$$/10</p>
-							<p>Normalized Score: $$IMDB_NORM$$/5</p>
-						</div>
-                       
-                    </div>
+				</div>
                 </div>
             </div>
         </div>

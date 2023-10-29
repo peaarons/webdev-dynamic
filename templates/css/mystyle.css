@@ -15,6 +15,12 @@ html {
     padding-top: 3rem;
 }
 
+#content-container-rate-line {
+    border-style: solid;
+    border-width: 0.5rem;
+    border-color: rgb(158, 37, 37);
+}
+
 #content-container-rate {
     background-color: #eae5c7;
     padding: 3rem;
@@ -35,9 +41,10 @@ html {
     border-color: white;
 }
 
-.movie-title {
-    border-color: red;
-    border-width: 1rem;
+#movie-title {
+    border-bottom-style: solid;
+    border-color: rgb(158, 37, 37);
+    border-width: 0.5rem;
 }
 
 h2 {
