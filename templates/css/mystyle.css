@@ -27,7 +27,7 @@ html {
     color: rgb(63, 42, 25);
     border-left-style: dashed;
     border-right-style: dashed;
-    border-width: 1rem;
+    border-width: 0.8rem;
     border-color: white;
 }
 
@@ -37,7 +37,7 @@ html {
     color: white;
     border-top-style: dashed;
     border-bottom-style: dashed;
-    border-width: 1rem;
+    border-width: 0.8rem;
     border-color: white;
 }
 
