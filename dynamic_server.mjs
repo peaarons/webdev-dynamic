@@ -20,8 +20,6 @@ const db = new sqlite3.Database(path.join(__dirname, 'fandango_score_comparison.
     } else {
         console.log('Successfully connected to database.');
     }
-
-
 });
 
 app.get('/', (req, res) => {
