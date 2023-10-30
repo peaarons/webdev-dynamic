@@ -12,7 +12,7 @@ const root = path.join(__dirname, 'public');
 const template = path.join(__dirname, 'templates');
 
 let app = express();
-app.use(express.static(template));
+app.use(express.static(root));
 
 const db = new sqlite3.Database(path.join(__dirname, 'fandango_score_comparison.sqlite3'), sqlite3.OPEN_READONLY, (err) => {
     if(err) {
@@ -22,6 +22,11 @@ const db = new sqlite3.Database(path.join(__dirname, 'fandango_score_comparison.
     }
 
 
+});
+
+app.get('/', (req, res) => {
+    console.log('test');
+    res.redirect('/index.html/A');
 });
 
 app.get('/index.html/:letter', (req, res) => {
