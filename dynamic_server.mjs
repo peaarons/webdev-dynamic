@@ -46,6 +46,9 @@ app.get('/index.html/:letter', (req, res) => {
     console.log(letter);
 
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ?'
+    
+    let p1 = dbSelect(query1, [letter]);
+    let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     fs.readFile(path.join(template, 'index.html'), 'utf-8', (err, data) => {
         if (err) {
