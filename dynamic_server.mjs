@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/index.html/:letter', (req, res) => {
-    let letter = req.params.letter;
+    let letter = req.params.letter.toUpperCase();
     console.log(letter);
     fs.readFile(path.join(template, 'index.html'), 'utf-8', (err, data) => {
         if (err) {
