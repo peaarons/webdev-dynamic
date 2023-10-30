@@ -22,6 +22,20 @@ const db = new sqlite3.Database(path.join(__dirname, 'fandango_score_comparison.
     }
 });
 
+function dbSelect(query, params) {
+    let p = new Promise((resolve, reject) => {
+        db.all(query, params, (err, rows) => {
+            if(err) {
+                reject(err); 
+            }
+            else {
+                resolve(rows);
+            }
+        });
+    });
+    return p;
+};
+
 app.get('/', (req, res) => {
     console.log('test');
     res.redirect('/index.html/A');
