@@ -44,6 +44,9 @@ app.get('/', (req, res) => {
 app.get('/index.html/:letter', (req, res) => {
     let letter = req.params.letter.toUpperCase();
     console.log(letter);
+
+    let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ?'
+
     fs.readFile(path.join(template, 'index.html'), 'utf-8', (err, data) => {
         if (err) {
             res.status(404).type('txt').send('File Not Found.');
