@@ -50,12 +50,20 @@ app.get('/index.html/:letter', (req, res) => {
     let p1 = dbSelect(query1, [letter]);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
-    fs.readFile(path.join(template, 'index.html'), 'utf-8', (err, data) => {
-        if (err) {
-            res.status(404).type('txt').send('File Not Found.');
-        }
-        res.status(200).type('html').send(data);
+    Promise.all([p1,p2]).then((results) => {
+        let response = results[2]
+        console.log(results)
+        res.status(200).type('html').send(response);
+    }).catch((error) => {
+        res.status(200).type('txt').send('File not found');
     });
+
+    // fs.readFile(path.join(template, 'index.html'), 'utf-8', (err, data) => {
+    //     if (err) {
+    //         res.status(404).type('txt').send('File Not Found.');
+    //     }
+    //     res.status(200).type('html').send(data);
+    // });
 });
 
 app.listen(port, () => {
