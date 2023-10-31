@@ -47,12 +47,12 @@ app.get('/index.html/:letter', (req, res) => {
 
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ?'
     
-    let p1 = dbSelect(query1, [letter]);
+    let p1 = dbSelect(query1, [`${letter}%`]);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     Promise.all([p1,p2]).then((results) => {
-        let response = results[2]
-        console.log(results)
+        let response = results[1]
+        console.log(results[0])
         res.status(200).type('html').send(response);
     }).catch((error) => {
         res.status(200).type('txt').send('File not found');
