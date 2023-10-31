@@ -56,7 +56,7 @@ app.get('/index.html/:letter', (req, res) => {
 
         let response_body = '';
         results[0].forEach((entry) => {
-            response_body += entry.film + '<br>';
+            response_body += entry.FILM + '<br>';
         });
         console.log(response_body);
         response = response.replace('$$MOVIE TITLES$$', response_body);
