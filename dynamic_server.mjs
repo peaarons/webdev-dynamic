@@ -56,7 +56,7 @@ app.get('/index.html/:letter', (req, res) => {
         results[0].forEach((entry) => {
             let title = entry.FILM
             let formatted_url_extension = title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase();
-            response_body += '<a href="/film/' + formatted_url_extension + '">' + title + '</a>';
+            response_body += '<a href="/film/' + formatted_url_extension + '">' + title + '</a>' + '<br>';
         });
         response = response.replace('$$MOVIE TITLES$$', response_body);
         res.status(200).type('html').send(response);
