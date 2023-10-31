@@ -52,25 +52,17 @@ app.get('/index.html/:letter', (req, res) => {
 
     Promise.all([p1,p2]).then((results) => {
         let response = results[1];
-        console.log(results[0]);
-
         let response_body = '';
         results[0].forEach((entry) => {
-            response_body += entry.FILM + '<br>';
+            let title = entry.FILM
+            let formatted_url_extension = title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase();
+            response_body += '<a href="/index.html/' + formatted_url_extension + '">' + title + '</a>';
         });
-        console.log(response_body);
         response = response.replace('$$MOVIE TITLES$$', response_body);
         res.status(200).type('html').send(response);
     }).catch((error) => {
         res.status(200).type('txt').send('File not found');
     });
-
-    // fs.readFile(path.join(template, 'index.html'), 'utf-8', (err, data) => {
-    //     if (err) {
-    //         res.status(404).type('txt').send('File Not Found.');
-    //     }
-    //     res.status(200).type('html').send(data);
-    // });
 });
 
 app.listen(port, () => {
