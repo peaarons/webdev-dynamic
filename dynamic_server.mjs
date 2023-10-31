@@ -38,10 +38,10 @@ function dbSelect(query, params) {
 
 app.get('/', (req, res) => {
     console.log('test');
-    res.redirect('/index.html/A');
+    res.redirect('/titles/A');
 });
 
-app.get('/index.html/:letter', (req, res) => {
+app.get('/titles/:letter', (req, res) => {
     let letter = req.params.letter.toUpperCase();
     console.log(letter);
 
