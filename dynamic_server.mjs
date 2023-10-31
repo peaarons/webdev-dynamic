@@ -65,9 +65,9 @@ app.get('/titles/:letter', (req, res) => {
     });
 });
 
-app.get('/film/:title', (req, res) => {
-    let title = req.params.title.toLowerCase();
-    console.log(title);
+app.get('/film/:film_id', (req, res) => {
+    let film_id = req.params.film_id.toLowerCase();
+    console.log(film_id);
 
     let query1 = '';
     
