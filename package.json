@@ -3,11 +3,10 @@
     "description": "Dynamic Server",
     "version": "1.0.0",
     "author": {
-        "name": "",
-        "email": ""
+        "name": "Prachi Arons",
+        "email": "prachi.arons@stthomas.edu"
     },
-    "contributors": [
-    ],
+    "contributors": [ "Paku Thao", "Matt Lao" ],
     "repository": {},
     "dependencies": {
         "express": "^4.18.2",
