@@ -116,6 +116,7 @@ app.get('/film/:film_id', (req, res) => {
             let response = results[1];
             console.log(ratings);
 
+            response = response.replace('$$MOVIE$$', ratings.FILM);
             response = response.replace('$$MOVIE TITLE$$', ratings.FILM);
             
             response = response.replace('$$FAN_STARS$$', ratings.Fandango_Stars).replace('$$NUM_FAN_STARS$$', ratings.Fandango_Stars);
