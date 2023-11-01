@@ -3,10 +3,10 @@ services:
     type: web
     buildCommand: npm install && npm run build
     startCommand: npm start
-    envVars:
+    env:
       - key: NODE_ENV
         value: production
       - key: DB_HOST
-        fromDatabse: 
-          name: fandago_score_comprassions
-          property: host
+        fromDatabase:
+          name: fandango_score_comparssions
+          properties: host
