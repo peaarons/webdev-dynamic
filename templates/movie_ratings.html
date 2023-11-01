@@ -62,7 +62,7 @@
 							<h2>Fandango</h2>
 							<div class="fandango">
 								<p>Fandango Stars: <span>$$FAN_STARS$$</span>/5 <img src="../stars_img/$$NUM_FAN_STARS$$star.PNG" alt="$$NUM_FAN_STARS$$stars"></p></p>
-								<p>Fandango Raiting Value: <span>$$FAN_RATE_VAL$$</span>/5 <img src="../stars_img/$$NUM_FAN_RATE_STARS$$star.PNG" alt="$$NUM_FAN_RATE_STARS$$stars"></p></p>
+								<p>Fandango Rating Value: <span>$$FAN_RATE_VAL$$</span>/5</p>
 							</div>
 	
 							<h2>Metacritic</h2>
@@ -106,7 +106,7 @@
 
         var data = [
             {
-                x: ['Fandango Stars', 'Fandango Raiting Value', 'Metacritic Critic Score', 'User Score', 'Tomatometer Score', 'User Score', 'IMDb User Score'],
+                x: ['Fandango Stars', 'Fandango Rating Value', 'Metacritic Critic Score', 'Metacritic User Score', 'Tomatometer Score', 'Rotten Tomatoes User Score', 'IMDb User Score'],
                 y: ['$$DATA$$'],
                 type: 'bar',
                 marker: {
@@ -118,7 +118,7 @@
         ];
 
         var layout = {
-            title: '$$MOVIE TITLE$$',
+            title: '$$MOVIE TITLE$$ Ratings Breakdown',
             barmode: 'stack',
             paper_bgcolor: '#eae5c7',
             plot_bgcolor: '#eae5c7',
