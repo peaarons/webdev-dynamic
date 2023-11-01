@@ -108,21 +108,6 @@ app.get('/film/:film_id', (req, res) => {
     }).catch((error) => {
         res.status(200).type('txt').send('Could not find film for ID' + film_id);
     });
-
-
-    Promise.all([p1,p2]).then((results) => {
-        let response = results[1];
-        let response_body = '';
-        results[0].forEach((entry) => {
-            let title = entry.FILM
-            let formatted_url_extension = title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase();
-            response_body += '<a href="/film/' + formatted_url_extension + '">' + title + '</a>' + '<br>';
-        });
-        response = response.replace('$$MOVIE TITLES$$', response_body);
-        res.status(200).type('html').send(response);
-    }).catch((error) => {
-        res.status(200).type('txt').send('File not found');
-    });
 });
 
 app.listen(port, () => {
