@@ -46,6 +46,7 @@ app.get('/titles/:letter', (req, res) => {
     console.log(letter);
 
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ?'
+    let query2 = 'SELECT * FROM films WHERE title LIKE ?'
     
     let p1 = dbSelect(query1, [`${letter}%`]);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
@@ -53,14 +54,59 @@ app.get('/titles/:letter', (req, res) => {
     Promise.all([p1,p2]).then((results) => {
         let response = results[1];
         let response_body = '';
+        let film_id_promises = [];
+
         results[0].forEach((entry) => {
-            let title = entry.FILM
-            let formatted_url_extension = title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase();
-            response_body += '<a href="/film/' + formatted_url_extension + '">' + title + '</a>' + '<br>';
+            let title = entry.FILM;
+
+            let p3 = dbSelect(query2, [`%${title}%`])
+                .then((films) => {
+                    let films_results = films[0];
+                    console.log(films_results);
+                    return films_results.film_id;
+                })
+                .catch((error) => {
+                    console.error(error);
+                    return null;
+                });
+
+            film_id_promises.push(p3);
         });
-        response = response.replace('$$MOVIE TITLES$$', response_body);
-        res.status(200).type('html').send(response);
+
+
+        Promise.all(film_id_promises).then((film_ids) => {
+            results[0].forEach((entry, index) => {
+                let title = entry.FILM;
+                let film_id = film_ids[index];
+                response_body += '<a href="/film/' + film_id + '">' + title + '</a>' + '<br>';
+            });
+            
+            response = response.replace('$$MOVIE TITLES$$', response_body);
+            res.status(200).type('html').send(response);
+        }).catch((error) => {
+            console.error(error);
+            res.status(200).type('txt').send('File not found');
+        });
+        // results[0].forEach((entry) => {
+        //     let title = entry.FILM
+        //     let film_id = ''
+        //     let p3 = dbSelect(query2, [`%${title}%`]);
+        //     p3.then((films) => {
+        //         let films_results = films[0]
+        //         console.log(films_results);
+        //         film_id = films_results.film_id
+        //         console.log(film_id);
+        //     }).catch((error) => {
+        //         res.status(200).type('txt').send('File not found');
+        //     });
+        //     response_body += '<a href="/film/' + film_id + '">' + title + '</a>' + '<br>';
+        //     // let formatted_url_extension = title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase();
+        //     // response_body += '<a href="/film/' + formatted_url_extension + '">' + title + '</a>' + '<br>';
+        // });
+        // response = response.replace('$$MOVIE TITLES$$', response_body);
+        // res.status(200).type('html').send(response);
     }).catch((error) => {
+        console.log(error);
         res.status(200).type('txt').send('File not found');
     });
 });
