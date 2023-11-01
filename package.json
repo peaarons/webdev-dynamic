@@ -6,7 +6,10 @@
         "name": "Prachi Arons",
         "email": "prachi.arons@stthomas.edu"
     },
-    "contributors": [ "Paku Thao", "Matt Lao" ],
+    "contributors": [
+        "Paku Thao",
+        "Matt Lao"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/peaarons/webdev-dynamic.git"
