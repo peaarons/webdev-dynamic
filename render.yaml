@@ -1,0 +1,12 @@
+services:
+  - name: dynamic Webserver
+    type: web
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    env:
+      - key: NODE_ENV
+        value: production
+      -key: DB_HOST
+      fromDatabse: 
+        name: fandago_score_comprassions
+        property: host
