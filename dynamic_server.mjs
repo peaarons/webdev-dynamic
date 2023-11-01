@@ -56,6 +56,7 @@ app.get('/titles/:letter', (req, res) => {
         let response_body = '';
         let film_id_promises = [];
 
+        // create promises to query for each ID
         results[0].forEach((entry) => {
             let title = entry.FILM;
 
@@ -73,7 +74,7 @@ app.get('/titles/:letter', (req, res) => {
             film_id_promises.push(p3);
         });
 
-
+        // generate links once all film_id promises resolve
         Promise.all(film_id_promises).then((film_ids) => {
             results[0].forEach((entry, index) => {
                 let title = entry.FILM;
@@ -87,24 +88,6 @@ app.get('/titles/:letter', (req, res) => {
             console.error(error);
             res.status(200).type('txt').send('File not found');
         });
-        // results[0].forEach((entry) => {
-        //     let title = entry.FILM
-        //     let film_id = ''
-        //     let p3 = dbSelect(query2, [`%${title}%`]);
-        //     p3.then((films) => {
-        //         let films_results = films[0]
-        //         console.log(films_results);
-        //         film_id = films_results.film_id
-        //         console.log(film_id);
-        //     }).catch((error) => {
-        //         res.status(200).type('txt').send('File not found');
-        //     });
-        //     response_body += '<a href="/film/' + film_id + '">' + title + '</a>' + '<br>';
-        //     // let formatted_url_extension = title.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase();
-        //     // response_body += '<a href="/film/' + formatted_url_extension + '">' + title + '</a>' + '<br>';
-        // });
-        // response = response.replace('$$MOVIE TITLES$$', response_body);
-        // res.status(200).type('html').send(response);
     }).catch((error) => {
         console.log(error);
         res.status(200).type('txt').send('File not found');
