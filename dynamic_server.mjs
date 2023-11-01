@@ -66,13 +66,49 @@ app.get('/titles/:letter', (req, res) => {
 });
 
 app.get('/film/:film_id', (req, res) => {
-    let film_id = req.params.film_id.toLowerCase();
+    let film_id = req.params.film_id;
+    let film_title = '';
     console.log(film_id);
 
-    let query1 = '';
+    let query1 = 'SELECT * FROM films WHERE film_id = ?';
+    let query2 = 'SELECT * FROM fandango_score_comparison WHERE FILM = ?';
     
-    let p1 = dbSelect(query1, [`${title}%`]);
-    let p2 = fs.promises.readFile(path.join(template, 'movie_ratings.html'), 'utf-8');
+    let p1 = dbSelect(query1, [`${film_id}%`]);
+    let p2 = dbSelect(query2, [film_title]);
+    let p3 = fs.promises.readFile(path.join(template, 'movie_ratings.html'), 'utf-8');
+
+    p1.then((film) => {
+        film_title = film.title;
+        console.log(film_title)
+        Promise.all([p2, p3]).then((results) => {
+            let ratings = results[0];
+            let response = results[1];
+            console.log(ratings);
+            
+            response = response.replace('$$FAN_STARS$$', ratings.Fandango_Stars);
+            response = response.replace('$$FAN_RATE_VAL$$', ratings.Fandango_Ratingvalue);
+
+            response = response.replace('$$META_CRIT_SCORE$$', ratings.Metacritic);
+            response = response.replace('$$META_CRIT_SCORE_NORM$$', ratings.Metacritic_norm);
+            response = response.replace('$$META_USER_SCORE$$', ratings.Metacritic_User);
+            response = response.replace('$$META_USER_SCORE_NORM$$', ratings.Metacritic_user_nom);
+
+            response = response.replace('$$TOMATOMETER_SCORE$$', ratings.RottenTomatoes);
+            response = response.replace('$$TOMATOMETER_SCORE_NORM$$', ratings.RT_norm);
+            response = response.replace('$$TOMATOE_USER_SCORE$$', ratings.RottenTomatoes_User);
+            response = response.replace('$$TOMATOE_USER_SCORE_NORM$$', ratings.RT_user_norm);
+
+            response = response.replace('$$IMDB_USER$$', ratings.IMDB);
+            response = response.replace('$$IMDB_NORM$$', ratings.IMDB_norm);
+
+            res.status(200).type('html').send(response);
+        }).catch((error) => {
+            res.status(200).type('txt').send('File not found');
+        });
+    }).catch((error) => {
+        res.status(200).type('txt').send('Could not find film for ID' + film_id);
+    });
+
 
     Promise.all([p1,p2]).then((results) => {
         let response = results[1];
