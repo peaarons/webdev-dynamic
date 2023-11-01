@@ -61,30 +61,30 @@
 						<div class="cell large-auto" style="padding-bottom: 2rem; padding-left: 2rem;">
 							<h2>Fandango</h2>
 							<div class="fandango">
-								<p>Fandango Stars: <span>$$FAN_STARS$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p></p>
-								<p>Fandango Raiting Value: <span>$$FAN_RATE_VAL$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p></p>
+								<p>Fandango Stars: <span>$$FAN_STARS$$</span>/5 <img src="../stars_img/$$NUM_FAN_STARS$$star.PNG" alt="$$NUM_FAN_STARS$$stars"></p></p>
+								<p>Fandango Rating Value: <span>$$FAN_RATE_VAL$$</span>/5</p>
 							</div>
 	
 							<h2>Metacritic</h2>
 							<div class="metaCrit">
 								<p>Metacritic Critic Score: <span>$$META_CRIT_SCORE$$</span>/100</p>
-								<p>Normalized Metacritic Critic Score: <span>$$META_CRIT_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p></p>
+								<p>Normalized Metacritic Critic Score: <span>$$META_CRIT_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_META_STARS$$star.PNG" alt="$$NUM_META_STARS$$stars"></p></p>
 								<p>User Score: <span>$$META_USER_SCORE$$</span>/10</p>
-								<p>Normalized User Score: <span>$$META_USER_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p></p>
+								<p>Normalized User Score: <span>$$META_USER_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_META_USER_STARS$$star.PNG" alt="$$NUM__META_USER_STARS$$stars"></p></p>
 							</div>
 						</div>
 						<div class="cell large-auto">
 							<h2>Rotton Tomatoes</h2>
 							<div class="rot_tom">
 								<p>Tomatometer Score: <span>$$TOMATOMETER_SCORE$$%</span></p>
-								<p>Normalized Tomatometer Score: <span>$$TOMATOMETER_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p></p>
+								<p>Normalized Tomatometer Score: <span>$$TOMATOMETER_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_TOM_STARS$$star.PNG" alt="$$NUM_TOM_STARS$$stars"></p></p>
 								<p>User Score: <span>$$TOMATOE_USER_SCORE$$</span></p>
-								<p>Normalized User Score: <span>$$TOMATOE_USER_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p></p>
+								<p>Normalized User Score: <span>$$TOMATOE_USER_SCORE_NORM$$</span>/5 <img src="../stars_img/$$NUM_TOM_USER_STARS$$star.PNG" alt="$$NUM_TOM_USER_STARS$$stars"></p></p>
 							</div>
 							<h2>IMDB</h2>
 							<div class="imdb">
 								<p>IMDb User Score: <span>$$IMDB_USER$$</span>/10</p>
-								<p>Normalized Score: <span>$$IMDB_NORM$$</span>/5 <img src="../stars_img/$$NUM_STARS$$star.PNG" alt="$$NUM_STARS$$stars"></p>
+								<p>Normalized Score: <span>$$IMDB_NORM$$</span>/5 <img src="../stars_img/$$NUM_IMDB_STARS$$star.PNG" alt="$$NUM_IMDB_STARS$$stars"></p>
 							</div>
 						   
 						</div>
@@ -106,8 +106,8 @@
 
         var data = [
             {
-                x: ['Fandango Stars', 'Fandango Raiting Value', 'Metacritic Critic Score', 'User Score', 'Tomatometer Score', 'User Score', 'IMDb User Score'],
-                y: [],
+                x: ['Fandango Stars', 'Fandango Rating Value', 'Metacritic Critic Score', 'Metacritic User Score', 'Tomatometer Score', 'Rotten Tomatoes User Score', 'IMDb User Score'],
+                y: ['$$DATA$$'],
                 type: 'bar',
                 marker: {
                     color: 'rgb(158, 37, 37)'
@@ -118,7 +118,7 @@
         ];
 
         var layout = {
-            title: '$$MOVIE TITLE$$',
+            title: '$$MOVIE TITLE$$ Ratings Breakdown',
             barmode: 'stack',
             paper_bgcolor: '#eae5c7',
             plot_bgcolor: '#eae5c7',
