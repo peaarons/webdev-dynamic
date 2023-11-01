@@ -67,19 +67,21 @@ app.get('/titles/:letter', (req, res) => {
 
 app.get('/film/:film_id', (req, res) => {
     let film_id = req.params.film_id;
+    let film_results = '';
     let film_title = '';
     console.log(film_id);
 
     let query1 = 'SELECT * FROM films WHERE film_id = ?';
     let query2 = 'SELECT * FROM fandango_score_comparison WHERE FILM = ?';
     
-    let p1 = dbSelect(query1, [`${film_id}%`]);
+    let p1 = dbSelect(query1, [film_id]);
     let p2 = dbSelect(query2, [film_title]);
     let p3 = fs.promises.readFile(path.join(template, 'movie_ratings.html'), 'utf-8');
 
     p1.then((film) => {
-        film_title = film.title;
-        console.log(film_title)
+        film_results = film[0];
+        film_title = film_results.title;
+        console.log(film_title);
         Promise.all([p2, p3]).then((results) => {
             let ratings = results[0];
             let response = results[1];
