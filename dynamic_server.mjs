@@ -136,7 +136,7 @@ app.get('/film/:film_id', (req, res) => {
             response = response.replace('$$MOVIE TITLE$$', ratings.FILM);
             
             response = response.replace('$$FAN_STARS$$', ratings.Fandango_Stars).replace('$$NUM_FAN_STARS$$', ratings.Fandango_Stars);
-            response = response.replace('$$FAN_RATE_VAL$$', ratings.Fandango_Ratingvalue).replace('$$NUM_FAN_RATE_STARS$$', ratings.Fandango_Ratingvalue)
+            response = response.replace('$$FAN_RATE_VAL$$', ratings.Fandango_Ratingvalue)
 
             response = response.replace('$$META_CRIT_SCORE$$', ratings.Metacritic);
             response = response.replace('$$META_CRIT_SCORE_NORM$$', ratings.Metacritic_norm).replace('$$NUM_META_STARS$$', ratings.Metacritic_norm_round);
