@@ -105,6 +105,19 @@ app.get('/film/:film_id', (req, res) => {
             response = response.replace('$$IMDB_USER$$', ratings.IMDB);
             response = response.replace('$$IMDB_NORM$$', ratings.IMDB_norm).replace('$$NUM_IMDB_STARS$$', ratings.IMDB_norm_round);
 
+            let chart_body = `
+                '${ratings.Fandango_Stars}',
+                '${ratings.Fandango_Ratingvalue}',
+                '${ratings.Metacritic_norm}',
+                '${ratings.Metacritic_user_nom}',
+                '${ratings.RT_norm}',
+                '${ratings.RT_user_norm}',
+                '${ratings.IMDB_norm}',   
+            `
+            
+            response = response.replace('$$MOVIE TITLE$$', ratings.FILM);
+            response = response.replace("'$$DATA$$'", chart_body);
+
             res.status(200).type('html').send(response);
         }).catch((error) => {
             res.status(200).type('txt').send('File not found');
