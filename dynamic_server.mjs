@@ -82,6 +82,9 @@ app.get('/titles/:letter', (req, res) => {
                 response_body += '<a href="/film/' + film_id + '">' + title + '</a>' + '<br>';
             });
             
+            if(response_body == '') {
+                response_body = 'No Movie Titles Listed';
+            }
             response = response.replace('$$MOVIE TITLES$$', response_body);
             res.status(200).type('html').send(response);
         }).catch((error) => {

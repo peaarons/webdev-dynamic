@@ -54,6 +54,10 @@ p {
     font-size: 1.2rem;
 }
 
+#movies {
+    font-size: 2rem;
+}
+
 p,
 a {
     color: rgb(63, 42, 25);
