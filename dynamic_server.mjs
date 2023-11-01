@@ -45,7 +45,7 @@ app.get('/titles/:letter', (req, res) => {
     let letter = req.params.letter.toUpperCase();
     console.log(letter);
 
-    let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ?'
+    let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ? ORDER BY FILM ASC'
     let query2 = 'SELECT * FROM films WHERE title LIKE ?'
     
     let p1 = dbSelect(query1, [`${letter}%`]);
@@ -89,11 +89,11 @@ app.get('/titles/:letter', (req, res) => {
             res.status(200).type('html').send(response);
         }).catch((error) => {
             console.error(error);
-            res.status(200).type('txt').send('File not found');
+            res.status(404).type('txt').send('File not found');
         });
     }).catch((error) => {
         console.log(error);
-        res.status(200).type('txt').send('File not found');
+        res.status(404).type('txt').send('File not found');
     });
 });
 
@@ -156,7 +156,7 @@ app.get('/film/:film_id', (req, res) => {
             res.status(200).type('txt').send('File not found');
         });
     }).catch((error) => {
-        res.status(200).type('txt').send('Could not find film for ID' + film_id);
+        res.status(404).type('txt').send('Could not find film for ID' + film_id);
     });
 });
 
