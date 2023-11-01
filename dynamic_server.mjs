@@ -86,22 +86,24 @@ app.get('/film/:film_id', (req, res) => {
             let ratings = results[0][0];
             let response = results[1];
             console.log(ratings);
+
+            response = response.replace('$$MOVIE TITLE$$', ratings.FILM);
             
-            response = response.replace('$$FAN_STARS$$', ratings.Fandango_Stars);
-            response = response.replace('$$FAN_RATE_VAL$$', ratings.Fandango_Ratingvalue);
+            response = response.replace('$$FAN_STARS$$', ratings.Fandango_Stars).replace('$$NUM_FAN_STARS$$', ratings.Fandango_Stars);
+            response = response.replace('$$FAN_RATE_VAL$$', ratings.Fandango_Ratingvalue).replace('$$NUM_FAN_RATE_STARS$$', ratings.Fandango_Ratingvalue)
 
             response = response.replace('$$META_CRIT_SCORE$$', ratings.Metacritic);
-            response = response.replace('$$META_CRIT_SCORE_NORM$$', ratings.Metacritic_norm);
+            response = response.replace('$$META_CRIT_SCORE_NORM$$', ratings.Metacritic_norm).replace('$$NUM_META_STARS$$', ratings.Metacritic_norm_round);
             response = response.replace('$$META_USER_SCORE$$', ratings.Metacritic_User);
-            response = response.replace('$$META_USER_SCORE_NORM$$', ratings.Metacritic_user_nom);
+            response = response.replace('$$META_USER_SCORE_NORM$$', ratings.Metacritic_user_nom).replace('$$NUM_META_USER_STARS$$', ratings.Metacritic_user_norm_round);
 
             response = response.replace('$$TOMATOMETER_SCORE$$', ratings.RottenTomatoes);
-            response = response.replace('$$TOMATOMETER_SCORE_NORM$$', ratings.RT_norm);
+            response = response.replace('$$TOMATOMETER_SCORE_NORM$$', ratings.RT_norm).replace('$$NUM_TOM_STARS$$', ratings.RT_norm_round);
             response = response.replace('$$TOMATOE_USER_SCORE$$', ratings.RottenTomatoes_User);
-            response = response.replace('$$TOMATOE_USER_SCORE_NORM$$', ratings.RT_user_norm);
+            response = response.replace('$$TOMATOE_USER_SCORE_NORM$$', ratings.RT_user_norm).replace('$$NUM_TOM_USER_STARS$$', ratings.RT_user_norm_round);
 
             response = response.replace('$$IMDB_USER$$', ratings.IMDB);
-            response = response.replace('$$IMDB_NORM$$', ratings.IMDB_norm);
+            response = response.replace('$$IMDB_NORM$$', ratings.IMDB_norm).replace('$$NUM_IMDB_STARS$$', ratings.IMDB_norm_round);
 
             res.status(200).type('html').send(response);
         }).catch((error) => {
