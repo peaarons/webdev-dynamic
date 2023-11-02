@@ -11,6 +11,18 @@ const port = 8000;
 const root = path.join(__dirname, 'public');
 const template = path.join(__dirname, 'templates');
 
+const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#']
+const ID_MAP = [
+    143, 37, 109, 115, 43, 35, 73, 62, 130, 48, 3, 1, 82, 66, 12, 56, 83, 
+    107, 79, 64, 2, 117, 138, 65, 4, 93, 52, 111, 27, 49, 11, 98, 100, 74, 
+    99, 145, 106, 125, 54, 5, 41, 119, 114, 141, 22, 112, 7, 113, 101, 131, 
+    45, 146, 13, 86, 10, 89, 88, 124, 40, 133, 21, 87, 132, 129, 69, 60, 142, 
+    70, 19, 92, 81, 134, 120, 51, 20, 80, 57, 31, 58, 24, 39, 76, 84, 26, 140, 
+    59, 71, 9, 85, 97, 18, 139, 90, 28, 77, 104, 16, 123, 17, 50, 118, 110, 53, 
+    34, 55, 44, 47, 30, 102, 67, 105, 75, 33, 15, 128, 136, 36, 135, 23, 95, 96, 
+    103, 91, 122, 108, 6, 126, 121, 137, 72, 42, 46, 8, 25, 63, 144, 14, 61, 68, 
+    78, 38, 94, 32, 116, 29, 127]
+
 let app = express();
 app.use(express.static(root));
 
@@ -86,6 +98,22 @@ app.get('/titles/:letter', (req, res) => {
                 response_body = 'No Movie Titles Listed';
             }
             response = response.replace('$$MOVIE TITLES$$', response_body);
+
+            let next_letter = ALPHABET[ALPHABET.indexOf(letter) + 1];
+            if (next_letter === undefined) {
+                next_letter = ALPHABET[0];
+            }
+            let prev_letter = ALPHABET[ALPHABET.indexOf(letter) - 1];
+            if (prev_letter === undefined) {
+                prev_letter = ALPHABET[ALPHABET.length - 1];
+            }
+            let next_link = 'titles/' + next_letter
+            let prev_link = 'titles/' + prev_letter
+            console.log(next_link);
+            console.log(prev_link);
+            response = response.replace('$$NEXT_LINK$$', next_link);
+            response = response.replace('$$PREV_LINK$$', prev_link);
+
             res.status(200).type('html').send(response);
         }).catch((error) => {
             console.error(error);
