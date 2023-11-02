@@ -160,6 +160,62 @@ app.get('/film/:film_id', (req, res) => {
     });
 });
 
+app.get('/Fandango_Stars/:stars(\\d+-\\d+)', (req, res) => {
+    const stars = req.params.stars;
+    console.log(stars);
+
+    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars >= 4 AND Fandango_Stars <= 5';
+    let query2 = 'SELECT * FROM films WHERE title LIKE ?';
+
+    let p1 = dbSelect(query1, [`%${stars}%`]);
+    let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
+
+    Promise.all([p1, p2]).then((results) => {
+        let response = results[1];
+        let response_body = '';
+        let film_id_promises = [];
+
+        // create promises to query for each ID
+        results[0].forEach((entry) => {
+            let title = entry.FILM;
+
+            let p3 = dbSelect(query2, [`%${title}%`])
+                .then((films) => {
+                    let films_results = films[0];
+                    console.log(films_results);
+                    return films_results.film_id;
+                })
+                .catch((error) => {
+                    console.error(error);
+                    return null;
+                });
+
+            film_id_promises.push(p3);
+        });
+
+        Promise.all(film_id_promises).then((film_ids) => {
+            results[0].forEach((entry, index) => {
+                let title = entry.FILM;
+                let film_id = film_ids[index];
+                response_body += '<a href="/stars/' + film_id + '">' + title + '</a>' + '<br>';
+            });
+
+            if (response_body == '') {
+                response_body = 'No Movie Titles Listed';
+            }
+            response = response.replace('$$MOVIE TITLES$$', response_body);
+            res.status(200).type('html').send(response);
+        }).catch((error) => {
+            console.error(error);
+            res.status(404).type('txt').send('File not found');
+        });
+    }).catch((error) => {
+        console.log(error);
+        res.status(404).type('txt').send('File not found');
+    });
+
+});
+
 app.listen(port, () => {
     console.log('Now listening on port ' + port);
 });
