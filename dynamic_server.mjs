@@ -93,7 +93,6 @@ app.get('/titles/:letter', (req, res) => {
         });
     }).catch((error) => {
         console.log(error);
-        res.status(404).type('txt').send('File not found');
     });
 });
 
@@ -160,18 +159,34 @@ app.get('/film/:film_id', (req, res) => {
     });
 });
 
-app.get('/Fandango_Stars/:stars(\\d+-\\d+)', (req, res) => {
-    const stars = req.params.stars;
-    console.log(stars);
+app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
+    let stars = req.params.stars;
+    let lo_star = null;
+    let hi_star = null;
+    
+    if (stars === '5-4') {
+        lo_star = 4;
+        hi_star = 5;
+    } else if (stars === '3-2') {
+        lo_star = 2;
+        hi_star = 3;
+    } else if (stars === '1-0') {
+        lo_star = 0;
+        hi_star = 1;
+    } else {
+        throw 'Unsupported range ' + stars
+    }
+    
 
-    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars >= 4 AND Fandango_Stars <= 5';
+    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars BETWEEN ? AND ?';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
 
-    let p1 = dbSelect(query1, [`%${stars}%`]);
+    let p1 = dbSelect(query1, [lo_star, hi_star]);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     Promise.all([p1, p2]).then((results) => {
         let response = results[1];
+        console.log(results[0]);
         let response_body = '';
         let film_id_promises = [];
 
@@ -186,8 +201,8 @@ app.get('/Fandango_Stars/:stars(\\d+-\\d+)', (req, res) => {
                     return films_results.film_id;
                 })
                 .catch((error) => {
-                    console.error(error);
-                    return null;
+                    console.log(error);
+                    res.status(404).type('txt').send('Could not find '+ title + ' in database');
                 });
 
             film_id_promises.push(p3);
@@ -197,7 +212,7 @@ app.get('/Fandango_Stars/:stars(\\d+-\\d+)', (req, res) => {
             results[0].forEach((entry, index) => {
                 let title = entry.FILM;
                 let film_id = film_ids[index];
-                response_body += '<a href="/stars/' + film_id + '">' + title + '</a>' + '<br>';
+                response_body += '<a href="/film/' + film_id + '">' + title + '</a>' + '<br>';
             });
 
             if (response_body == '') {
@@ -207,11 +222,11 @@ app.get('/Fandango_Stars/:stars(\\d+-\\d+)', (req, res) => {
             res.status(200).type('html').send(response);
         }).catch((error) => {
             console.error(error);
-            res.status(404).type('txt').send('File not found');
+            res.status(404).type('txt').send('Error getting film_ids in database');
         });
     }).catch((error) => {
-        console.log(error);
-        res.status(404).type('txt').send('File not found');
+        console.error(error);
+        res.status(404).type('txt').send(error);
     });
 
 });
