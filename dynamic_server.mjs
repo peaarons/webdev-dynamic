@@ -163,6 +163,17 @@ app.get('/film/:film_id', (req, res) => {
 app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
     const stars = req.params.stars;
     console.log(stars);
+    
+    if (stars === '5-4') {
+        console.log("4,5");
+    } else if (stars === '2-3') {
+        console.log("2,3");
+    } else if (stars === '1-0') {
+        console.log("0,1");
+    } else {
+        console.log("unsupported");
+    }
+    
 
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars >= 4 AND Fandango_Stars <= 5';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
