@@ -11,7 +11,7 @@ const port = 8000;
 const root = path.join(__dirname, 'public');
 const template = path.join(__dirname, 'templates');
 
-const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '#']
+const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'misc']
 const ID_MAP = [
     143, 37, 109, 115, 43, 35, 73, 62, 130, 48, 3, 1, 82, 66, 12, 56, 83, 
     107, 79, 64, 2, 117, 138, 65, 4, 93, 52, 111, 27, 49, 11, 98, 100, 74, 
@@ -54,13 +54,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/titles/:letter', (req, res) => {
-    let letter = req.params.letter.toUpperCase();
+    let letter = req.params.letter
     console.log(letter);
 
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ? ORDER BY FILM ASC'
     let query2 = 'SELECT * FROM films WHERE title LIKE ?'
-    
+
     let p1 = dbSelect(query1, [`${letter}%`]);
+
+    if (letter === 'misc') {
+        query1 = "SELECT * FROM fandango_score_comparison WHERE FILM LIKE '0%' OR FILM LIKE '1%' OR FILM LIKE '2%' OR FILM LIKE '3%' OR FILM LIKE '4%' OR FILM LIKE '5%' OR FILM LIKE '6%' OR FILM LIKE '7%' OR FILM LIKE '8%' OR FILM LIKE '9%' OR FILM LIKE '''%'"
+        p1 = dbSelect(query1, []);
+    } else {
+        letter = letter.toUpperCase()
+    }
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     Promise.all([p1,p2]).then((results) => {
