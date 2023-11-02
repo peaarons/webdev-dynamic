@@ -168,7 +168,7 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
     if (stars === '5-4') {
         lo_star = 4;
         hi_star = 5;
-    } else if (stars === '2-3') {
+    } else if (stars === '3-2') {
         lo_star = 2;
         hi_star = 3;
     } else if (stars === '1-0') {
