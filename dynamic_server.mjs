@@ -213,7 +213,7 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
             results[0].forEach((entry, index) => {
                 let title = entry.FILM;
                 let film_id = film_ids[index];
-                response_body += '<a href="/stars/' + film_id + '">' + title + '</a>' + '<br>';
+                response_body += '<a href="/film/' + film_id + '">' + title + '</a>' + '<br>';
             });
 
             if (response_body == '') {
