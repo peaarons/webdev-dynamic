@@ -71,3 +71,31 @@ img {
     width: 15rem;
     height: auto;
 }
+
+#buttons {
+    padding-bottom: 2rem;
+}
+
+#buttons a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 17px;
+}
+  
+#buttons a:hover {
+    background-color: rgb(102, 18, 18);
+}
+  
+.previous {
+    background-color: rgb(158, 37, 37);
+    color: white;
+}
+  
+.next {
+    background-color: rgb(158, 37, 37);
+    color: white;
+}
+  
+.round {
+    border-radius: 50%;
+}
