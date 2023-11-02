@@ -161,28 +161,33 @@ app.get('/film/:film_id', (req, res) => {
 });
 
 app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
-    const stars = req.params.stars;
-    console.log(stars);
+    let stars = req.params.stars;
+    let lo_star = null;
+    let hi_star = null;
     
     if (stars === '5-4') {
-        console.log("4,5");
+        lo_star = 4;
+        hi_star = 5;
     } else if (stars === '2-3') {
-        console.log("2,3");
+        lo_star = 2;
+        hi_star = 3;
     } else if (stars === '1-0') {
-        console.log("0,1");
+        lo_star = 0;
+        hi_star = 1;
     } else {
         console.log("unsupported");
     }
     
 
-    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars >= 4 AND Fandango_Stars <= 5';
+    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars BETWEEN ? AND ?';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
 
-    let p1 = dbSelect(query1, [`%${stars}%`]);
+    let p1 = dbSelect(query1, [lo_star, hi_star]);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     Promise.all([p1, p2]).then((results) => {
         let response = results[1];
+        console.log(results[0]);
         let response_body = '';
         let film_id_promises = [];
 
