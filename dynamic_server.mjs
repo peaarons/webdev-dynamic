@@ -201,8 +201,8 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
                     return films_results.film_id;
                 })
                 .catch((error) => {
-                    console.error(error);
-                    return null;
+                    console.log(error);
+                    res.status(404).type('txt').send('Could not find '+ title + ' in database');
                 });
 
             film_id_promises.push(p3);
@@ -222,9 +222,10 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
             res.status(200).type('html').send(response);
         }).catch((error) => {
             console.error(error);
-            res.status(404).type('txt').send('File not found');
+            res.status(404).type('txt').send('Error getting film_ids in database');
         });
     }).catch((error) => {
+        console.error(error);
         res.status(404).type('txt').send(error);
     });
 
