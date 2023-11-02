@@ -116,8 +116,6 @@ app.get('/titles/:letter', (req, res) => {
             }
             let next_link = 'titles/' + next_letter
             let prev_link = 'titles/' + prev_letter
-            console.log(next_link);
-            console.log(prev_link);
             response = response.replace('$$NEXT_LINK$$', next_link);
             response = response.replace('$$PREV_LINK$$', prev_link);
 
@@ -185,11 +183,26 @@ app.get('/film/:film_id', (req, res) => {
             response = response.replace('$$MOVIE TITLE$$', ratings.FILM);
             response = response.replace("'$$DATA$$'", chart_body);
 
+            let next_id = parseInt(film_id) + 1;
+            if (next_id > 146) {
+                next_id = 1;
+            };
+            let prev_id = parseInt(film_id) - 1;
+            if (prev_id < 1) {
+                prev_id = 146;
+            };
+            let next_link = 'film/' + next_id
+            let prev_link = 'film/' + prev_id
+            response = response.replace('$$NEXT_MOVIE_LINK$$', next_link);
+            response = response.replace('$$PREV_MOVIE_LINK$$', prev_link);
+            
             res.status(200).type('html').send(response);
         }).catch((error) => {
+            console.error(error)
             res.status(200).type('txt').send('File not found');
         });
     }).catch((error) => {
+        console.log(error);
         res.status(404).type('txt').send('Could not find film for ID' + film_id);
     });
 });
