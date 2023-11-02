@@ -93,7 +93,6 @@ app.get('/titles/:letter', (req, res) => {
         });
     }).catch((error) => {
         console.log(error);
-        res.status(404).type('txt').send('File not found');
     });
 });
 
@@ -175,7 +174,7 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
         lo_star = 0;
         hi_star = 1;
     } else {
-        console.log("unsupported");
+        throw 'Unsupported range ' + stars
     }
     
 
@@ -226,8 +225,7 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
             res.status(404).type('txt').send('File not found');
         });
     }).catch((error) => {
-        console.log(error);
-        res.status(404).type('txt').send('File not found');
+        res.status(404).type('txt').send(error);
     });
 
 });
