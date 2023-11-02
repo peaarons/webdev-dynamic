@@ -160,7 +160,7 @@ app.get('/film/:film_id', (req, res) => {
     });
 });
 
-app.get('/Fandango_Stars/:stars(\\d+-\\d+)', (req, res) => {
+app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
     const stars = req.params.stars;
     console.log(stars);
 
