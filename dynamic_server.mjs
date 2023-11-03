@@ -208,11 +208,16 @@ app.get('/film/:film_id', (req, res) => {
 
 app.get('/stars/:stars', (req, res) => {
     let stars = req.params.stars;
+
+    if (stars > 5 || stars < 0) {
+        throw stars + ' stars is not in the supported range, please enter choose a number between 0-5'
+    }
+
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars LIKE ?';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
 
     let p1 = dbSelect(query1,[`%${stars}%`]);
-    stars= parseInt(stars);
+    stars = parseInt(stars);
 
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
