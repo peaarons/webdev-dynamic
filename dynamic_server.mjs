@@ -7,7 +7,7 @@ import { default as sqlite3 } from 'sqlite3';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const port = 8100;
+const port = 8000;
 const root = path.join(__dirname, 'public');
 const template = path.join(__dirname, 'templates');
 
@@ -105,7 +105,6 @@ app.get('/titles/:letter', (req, res) => {
                 response_body = 'No Movie Titles Listed';
             }
             response = response.replace('$$MOVIE TITLES$$', response_body);
-            //response = response.replace('$$LETTERS$$', "that start with  " + letter );
             response = response.replace('$$LETTERS$$',  letter );
             let next_letter = ALPHABET[ALPHABET.indexOf(letter) + 1];
             if (next_letter === undefined) {
@@ -180,7 +179,6 @@ app.get('/film/:film_id', (req, res) => {
                 '${ratings.RT_user_norm}',
                 '${ratings.IMDB_norm}',   
             `
-            
             response = response.replace('$$MOVIE TITLE$$', ratings.FILM);
             response = response.replace("'$$DATA$$'", chart_body);
 
@@ -209,31 +207,10 @@ app.get('/film/:film_id', (req, res) => {
 });
 
 app.get('/stars/:stars', (req, res) => {
-//app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
     let stars = req.params.stars;
-   /*
-    let lo_star = null;
-    let hi_star = null;
-    
-    if (stars === '5-4') {
-        lo_star = 4;
-        hi_star = 5;
-    } else if (stars === '3-2') {
-        lo_star = 2;
-        hi_star = 3;
-    } else if (stars === '1-0') {
-        lo_star = 0;
-        hi_star = 1;
-    } else {
-        throw 'Unsupported range ' + stars
-    }
-    */
-
-    //let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars BETWEEN ? AND ?';
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars LIKE ?';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
 
-    //let p1 = dbSelect(query1, [lo_star, hi_star]);
     let p1 = dbSelect(query1, stars);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
@@ -243,7 +220,6 @@ app.get('/stars/:stars', (req, res) => {
         let response_body = '';
         let film_id_promises = [];
 
-        // create promises to query for each ID
         results[0].forEach((entry) => {
             let title = entry.FILM;
 
@@ -262,7 +238,6 @@ app.get('/stars/:stars', (req, res) => {
         });
 
         Promise.all(film_id_promises).then((film_ids) => {
-            //response = response.replace('$$LETTERS$$', "that have "+ stars + " stars");
             response = response.replace('$$LETTERS$$',  stars + " stars");
             results[0].forEach((entry, index) => {
                 let title = entry.FILM;
