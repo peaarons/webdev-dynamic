@@ -211,7 +211,9 @@ app.get('/stars/:stars', (req, res) => {
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars LIKE ?';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
 
-    let p1 = dbSelect(query1, stars);
+    let p1 = dbSelect(query1,[`%${stars}%`]);
+    stars= parseInt(stars);
+
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     Promise.all([p1, p2]).then((results) => {
