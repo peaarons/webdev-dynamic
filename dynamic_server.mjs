@@ -105,7 +105,8 @@ app.get('/titles/:letter', (req, res) => {
                 response_body = 'No Movie Titles Listed';
             }
             response = response.replace('$$MOVIE TITLES$$', response_body);
-
+            //response = response.replace('$$LETTERS$$', "that start with  " + letter );
+            response = response.replace('$$LETTERS$$',  letter );
             let next_letter = ALPHABET[ALPHABET.indexOf(letter) + 1];
             if (next_letter === undefined) {
                 next_letter = ALPHABET[0];
@@ -261,6 +262,8 @@ app.get('/stars/:stars', (req, res) => {
         });
 
         Promise.all(film_id_promises).then((film_ids) => {
+            //response = response.replace('$$LETTERS$$', "that have "+ stars + " stars");
+            response = response.replace('$$LETTERS$$',  stars + " stars");
             results[0].forEach((entry, index) => {
                 let title = entry.FILM;
                 let film_id = film_ids[index];
@@ -271,11 +274,11 @@ app.get('/stars/:stars', (req, res) => {
                 response_body = 'No Movie Titles Listed';
             }
             let next_star = parseInt(stars) + 1;
-            if (next_star=== undefined || stars ==5) {
+            if (stars ==5) {
                 next_star= 1;
             }
             let prev_star = parseInt(stars) - 1;
-            if (prev_star === undefined || stars ===1) {
+            if (stars ==1) {
                 prev_star= 5;
             }
             let next_link = 'stars/' + next_star
