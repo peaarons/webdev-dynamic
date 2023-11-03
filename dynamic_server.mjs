@@ -7,7 +7,7 @@ import { default as sqlite3 } from 'sqlite3';
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const port = 8000;
+const port = 8100;
 const root = path.join(__dirname, 'public');
 const template = path.join(__dirname, 'templates');
 
@@ -207,8 +207,10 @@ app.get('/film/:film_id', (req, res) => {
     });
 });
 
-app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
+app.get('/stars/:stars', (req, res) => {
+//app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
     let stars = req.params.stars;
+   /*
     let lo_star = null;
     let hi_star = null;
     
@@ -224,12 +226,14 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
     } else {
         throw 'Unsupported range ' + stars
     }
-    
+    */
 
-    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars BETWEEN ? AND ?';
+    //let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars BETWEEN ? AND ?';
+    let query1 = 'SELECT * FROM fandango_score_comparison WHERE Fandango_Stars LIKE ?';
     let query2 = 'SELECT * FROM films WHERE title LIKE ?';
 
-    let p1 = dbSelect(query1, [lo_star, hi_star]);
+    //let p1 = dbSelect(query1, [lo_star, hi_star]);
+    let p1 = dbSelect(query1, stars);
     let p2 = fs.promises.readFile(path.join(template, 'index.html'), 'utf-8');
 
     Promise.all([p1, p2]).then((results) => {
@@ -266,6 +270,19 @@ app.get('/stars/:stars(\\d+-\\d+)', (req, res) => {
             if (response_body == '') {
                 response_body = 'No Movie Titles Listed';
             }
+            let next_star = parseInt(stars) + 1;
+            if (next_star=== undefined || stars ==5) {
+                next_star= 1;
+            }
+            let prev_star = parseInt(stars) - 1;
+            if (prev_star === undefined || stars ===1) {
+                prev_star= 5;
+            }
+            let next_link = 'stars/' + next_star
+            let prev_link = 'stars/' + prev_star
+            response = response.replace('$$NEXT_LINK$$', next_link);
+            response = response.replace('$$PREV_LINK$$', prev_link);
+
             response = response.replace('$$MOVIE TITLES$$', response_body);
             res.status(200).type('html').send(response);
         }).catch((error) => {
