@@ -49,7 +49,6 @@ function dbSelect(query, params) {
 };
 
 app.get('/', (req, res) => {
-    console.log('test');
     res.redirect('/titles/A');
 });
 
@@ -57,6 +56,10 @@ app.get('/titles/:letter', (req, res) => {
     let letter = req.params.letter
     console.log(letter);
 
+    if (!ALPHABET.includes(letter)) {
+        throw 'Could not find movies starting with ' + letter;
+    }
+    
     let query1 = 'SELECT * FROM fandango_score_comparison WHERE FILM LIKE ? ORDER BY FILM ASC'
     let query2 = 'SELECT * FROM films WHERE title LIKE ?'
 
@@ -202,7 +205,7 @@ app.get('/film/:film_id', (req, res) => {
         });
     }).catch((error) => {
         console.log(error);
-        res.status(404).type('txt').send('Could not find film for ID' + film_id);
+        res.status(404).type('txt').send('Could not find film for ID ' + film_id);
     });
 });
 
